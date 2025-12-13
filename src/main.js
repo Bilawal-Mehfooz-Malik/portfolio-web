@@ -51,4 +51,44 @@ window.addEventListener('resize', () => {
   }
 });
 
+// Scroll Animation Observer
+const observerOptions = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.1
+};
+
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationPlayState = 'running';
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.animate-fade-up, .animate-fade-in').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+
+// Resume Tab Logic
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // 1. Remove active class from all buttons and contents
+    tabBtns.forEach(b => b.classList.remove('active'));
+    tabContents.forEach(c => c.classList.remove('active'));
+
+    // 2. Add active class to clicked button
+    btn.classList.add('active');
+
+    // 3. Show corresponding content
+    const targetId = btn.getAttribute('data-tab');
+    document.getElementById(targetId).classList.add('active');
+  });
+});
+
 console.log('Portfolio initialized.');
