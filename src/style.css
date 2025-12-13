@@ -347,8 +347,8 @@ body {
 }
 
 .hero-content h1 {
-  font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
-  /* Fluid typography */
+  font-size: clamp(1.5rem, 5vw + 1rem, 4.5rem);
+  /* Reduced min size to 1.5rem for mobile */
   line-height: 1.1;
   margin-bottom: 1.5rem;
   font-weight: 700;
