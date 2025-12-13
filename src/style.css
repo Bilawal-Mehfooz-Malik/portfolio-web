@@ -353,8 +353,8 @@ body {
 }
 
 .hero-content h1 {
-  font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem);
-  /* Increased min size to 2.25rem per user request */
+  font-size: clamp(3rem, 5vw + 1rem, 4.5rem);
+  /* Increased min size to 3rem (48px) per user request */
   line-height: 1.1;
   margin-bottom: 1.5rem;
   font-weight: 700;
