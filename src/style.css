@@ -322,8 +322,8 @@ body {
   .hero-section {
     min-height: auto;
     /* Remove full height to fix "empty lines" */
-    text-align: left;
-    /* Switch back to Left align per user request */
+    text-align: center;
+    /* User requested Center alignment */
     padding-top: calc(var(--nav-height) + 3rem);
     /* Adjust top padding for balance */
     padding-bottom: 4rem;
@@ -331,7 +331,7 @@ body {
   }
 
   .hero-content {
-    text-align: left;
+    text-align: center;
   }
 }
 
@@ -353,8 +353,8 @@ body {
 }
 
 .hero-content h1 {
-  font-size: clamp(2rem, 5vw + 0.5rem, 4.5rem);
-  /* Adjusted fluid type for better fit */
+  font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem);
+  /* Increased min size to 2.25rem per user request */
   line-height: 1.1;
   margin-bottom: 1.5rem;
   font-weight: 700;
