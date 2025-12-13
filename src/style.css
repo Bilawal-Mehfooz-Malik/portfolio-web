@@ -31,7 +31,10 @@
   --glass-bg: rgba(10, 25, 47, 0.7);
   --glass-border: rgba(100, 255, 218, 0.1);
   --card-bg: #1f1f1f;
-  --nav-height: 80px;
+  --glass-bg: rgba(10, 25, 47, 0.7);
+  --glass-border: rgba(100, 255, 218, 0.1);
+  --card-bg: #1f1f1f;
+  /* --nav-height: 80px; Removed to match light theme (70px) */
 }
 
 * {
