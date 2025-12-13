@@ -320,12 +320,18 @@ body {
 /* Fluid Typography & Responsive Alignment */
 @media (max-width: 768px) {
   .hero-section {
-    text-align: center;
-    /* Reverted to center alignment */
+    min-height: auto;
+    /* Remove full height to fix "empty lines" */
+    text-align: left;
+    /* Switch back to Left align per user request */
+    padding-top: calc(var(--nav-height) + 3rem);
+    /* Adjust top padding for balance */
+    padding-bottom: 4rem;
+    /* Ensure bottom space */
   }
 
   .hero-content {
-    text-align: center;
+    text-align: left;
   }
 }
 
