@@ -590,6 +590,9 @@ body {
 .resume-sidebar {
   display: flex;
   flex-direction: column;
+  position: sticky;
+  top: 100px;
+  align-self: start;
 }
 
 .sub-title {
@@ -657,6 +660,8 @@ body {
 /* Content Area */
 .resume-content {
   width: 100%;
+  min-height: 400px;
+  /* Prevent layout shift when switching tabs */
 }
 
 .tab-content {
