@@ -567,7 +567,7 @@ body {
 .resume-section {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 5rem 2rem;
   background-color: var(--card-bg);
@@ -671,6 +671,8 @@ body {
   display: none;
   /* Hidden by default */
   animation: fadeIn 0.4s ease forwards;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .tab-content.active {
@@ -680,6 +682,7 @@ body {
 .tab-title {
   font-size: 2rem;
   font-weight: 700;
+  margin-top: 0;
   margin-bottom: 2rem;
   border-bottom: 2px solid var(--glass-border);
   padding-bottom: 1rem;
@@ -690,6 +693,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+  margin-top: 0;
 }
 
 /* Resume Cards (Experience/Education) */
