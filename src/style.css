@@ -776,15 +776,15 @@ body {
 
 .info-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 4rem;
   row-gap: 2.5rem;
 }
 
 .info-item {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
   overflow: hidden;
 }
 
