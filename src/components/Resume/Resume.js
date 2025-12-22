@@ -1,10 +1,11 @@
 import './Resume.css';
+import { icons } from '../../assets/icons.js';
 
 export function renderResume() {
-    const resumeSection = document.createElement('section');
-    resumeSection.id = 'about';
-    resumeSection.className = 'resume-section';
-    resumeSection.innerHTML = `
+  const resumeSection = document.createElement('section');
+  resumeSection.id = 'about';
+  resumeSection.className = 'resume-section';
+  resumeSection.innerHTML = `
     <div class="resume-container">
       <div class="resume-grid">
         <!-- Left Sidebar: Navigation -->
@@ -79,11 +80,10 @@ export function renderResume() {
               </div>
               <!-- Placeholder for Internship -->
               <div class="resume-card">
-                <span class="card-date">2023 - 2024</span>
-                <h4 class="card-role">Mobile App Intern</h4>
-                <span class="card-company">Tech Solutions</span>
-                <p class="card-text">Assisted in UI/UX implementation and bug fixing for cross-platform mobile apps.
-                </p>
+                <span class="card-date">Aug 2024 - Oct 2024</span>
+                <h4 class="card-role">Flutter Development Intern</h4>
+                <span class="card-company">Internship Pakistan</span>
+                <p class="card-text">Collaborated with the development team to build and optimize cross-platform mobile applications using Flutter. Implemented responsive UI designs and integrated REST APIs for seamless data handling.</p>
               </div>
             </div>
           </div>
@@ -93,9 +93,10 @@ export function renderResume() {
             <h3 class="tab-title">My Education</h3>
             <div class="resume-scroll-container">
               <div class="resume-card">
-                <span class="card-date">2019 - 2023</span>
-                <h4 class="card-role">BSc Computer Systems Engineering</h4>
-                <span class="card-company">University of Engineering</span>
+                <span class="card-date">2021 - 2025</span>
+                <h4 class="card-role">B.Sc Computer Systems Engineering</h4>
+                <span class="card-company">Mirpur University of Science & Technology</span>
+                <p class="card-text">CGPA: 3.40 / 4.0</p>
               </div>
             </div>
           </div>
@@ -103,17 +104,43 @@ export function renderResume() {
           <!-- Skills Tab -->
           <div class="tab-content" id="tab-skills">
             <h3 class="tab-title">Technical Skills</h3>
-            <div class="skills-grid-tab">
-              <div class="skill-card tooltip" data-tooltip="Cross-platform Dev"><span>Flutter</span></div>
-              <div class="skill-card"><span>Dart</span></div>
-              <div class="skill-card"><span>Firebase</span></div>
-              <div class="skill-card"><span>REST APIs</span></div>
-              <div class="skill-card"><span>Google Cloud</span></div>
-              <div class="skill-card"><span>SQL</span></div>
-              <div class="skill-card"><span>Git / GitHub</span></div>
-              <div class="skill-card"><span>Figma</span></div>
-              <div class="skill-card"><span>Clean Architecture</span></div>
-              <div class="skill-card"><span>State Management</span></div>
+            <div class="skills-container-tab">
+              
+              <div class="skill-category">
+                <h4 class="category-title"><i class="fa-solid fa-code"></i> Languages</h4>
+                <div class="skills-grid-tab">
+                  <div class="skill-pill"><span>Dart</span></div>
+                  <div class="skill-pill"><span>JavaScript</span></div>
+                  <div class="skill-pill"><span>TypeScript</span></div>
+                </div>
+              </div>
+              
+              <div class="skill-category">
+                <h4 class="category-title"><i class="fa-solid fa-layer-group"></i> Frameworks</h4>
+                <div class="skills-grid-tab">
+                  <div class="skill-pill"><span>Flutter</span></div>
+                  <div class="skill-pill"><span>Next.js</span></div>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <h4 class="category-title"><i class="fa-solid fa-toolbox"></i> Tools & Platforms</h4>
+                <div class="skills-grid-tab">
+                  <div class="skill-pill"><span>Firebase</span></div>
+                  <div class="skill-pill"><span>Supabase</span></div>
+                  <div class="skill-pill"><span>Git & GitHub</span></div>
+                  <div class="skill-pill"><span>Codemagic</span></div>
+                  <div class="skill-pill"><span>Figma</span></div>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <h4 class="category-title"><i class="fa-solid fa-cloud-arrow-up"></i> Deployment</h4>
+                <div class="skills-grid-tab">
+                  <div class="skill-pill"><span>Google Play Store</span></div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -122,26 +149,26 @@ export function renderResume() {
     </div>
   `;
 
-    document.querySelector('main').appendChild(resumeSection);
-    initResumeLogic(resumeSection);
+  document.querySelector('main').appendChild(resumeSection);
+  initResumeLogic(resumeSection);
 }
 
 function initResumeLogic(resumeSection) {
-    const tabBtns = resumeSection.querySelectorAll('.tab-btn');
-    const tabContents = resumeSection.querySelectorAll('.tab-content');
+  const tabBtns = resumeSection.querySelectorAll('.tab-btn');
+  const tabContents = resumeSection.querySelectorAll('.tab-content');
 
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // 1. Remove active class from all buttons and contents
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // 1. Remove active class from all buttons and contents
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
 
-            // 2. Add active class to clicked button
-            btn.classList.add('active');
+      // 2. Add active class to clicked button
+      btn.classList.add('active');
 
-            // 3. Show corresponding content
-            const targetId = btn.getAttribute('data-tab');
-            resumeSection.querySelector(`#${targetId}`).classList.add('active');
-        });
+      // 3. Show corresponding content
+      const targetId = btn.getAttribute('data-tab');
+      resumeSection.querySelector(`#${targetId}`).classList.add('active');
     });
+  });
 }
