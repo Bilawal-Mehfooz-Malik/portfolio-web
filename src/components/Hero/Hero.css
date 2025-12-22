@@ -1,0 +1,169 @@
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--nav-height) + 1rem) var(--section-padding-x) 5rem;
+    position: relative;
+    text-align: center;
+}
+
+/* Fluid Typography & Responsive Alignment */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: auto;
+        text-align: center;
+        padding-top: calc(var(--nav-height) + 3rem);
+        padding-bottom: 4rem;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+}
+
+.hero-content {
+    max-width: 1200px;
+    z-index: 1;
+}
+
+.hero-content h2 {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.hero-content h1 {
+    font-size: clamp(3rem, 5vw + 1rem, 4.5rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.hero-content h1 .highlight {
+    background: none;
+    -webkit-text-fill-color: initial;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-group {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+/* Hero Visual & Animations */
+.hero-visual {
+    display: none;
+}
+
+.abstract-shape {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.2;
+    top: 20%;
+    left: 20%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.abstract-shape-2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+    bottom: 20%;
+    right: 20%;
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Entrance Animations */
+.animate-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.delay-100 {
+    animation-delay: 0.1s;
+}
+
+.delay-200 {
+    animation-delay: 0.2s;
+}
+
+.delay-300 {
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        margin-bottom: 2rem;
+    }
+
+    .hero-content p {
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .cta-group {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0;
+    }
+}
