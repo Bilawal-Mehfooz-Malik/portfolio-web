@@ -60,15 +60,18 @@
     font-size: 1.1rem;
     text-align: left;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;
     position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .tab-btn:hover {
     background: var(--primary-color);
-    color: #000;
+    color: var(--bg-color);
     border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .tab-btn.active {
@@ -76,14 +79,10 @@
     color: var(--bg-color);
     border-color: var(--primary-color);
     font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.tab-btn:hover {
-    background: var(--primary-color);
-    color: var(--bg-color);
-    /* Same contrast logic for hover */
-    border-color: var(--primary-color);
-}
+
 
 /* Content Area */
 .resume-content {
@@ -250,6 +249,10 @@
     font-size: 1.25rem;
     line-height: 2;
     color: var(--text-muted);
+}
+
+.about-tab-text .bio-text strong {
+    color: var(--text-color);
 }
 
 .info-grid {
