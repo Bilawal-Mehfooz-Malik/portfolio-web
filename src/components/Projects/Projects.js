@@ -1,57 +1,126 @@
 import './Projects.css';
 
 // Project data - easily editable
-const projectsData = [
-    {
-        id: 'risewell',
-        title: 'Risewell',
-        shortDesc: 'A smart alarm app with dynamic music and daily inspiration.',
-        fullDesc: `Risewell is a beautifully designed alarm application that transforms your morning routine. It features dynamic music that changes with each alarm, a daily inspiration system with motivational quotes, and a clean, intuitive interface designed entirely in Figma.`,
-        role: 'Full-Stack Developer & UI/UX Designer',
-        techStack: ['Flutter', 'Dart', 'Supabase', 'Figma'],
-        features: [
-            'Dynamic music selection for each alarm',
-            'Daily motivational quotes and inspiration',
-            'Beautiful, intuitive UI designed in Figma',
-            'Cloud sync with Supabase backend'
-        ],
-        links: {
-            github: 'https://github.com/Bilawal-Mehfooz-Malik',
-            playstore: null, // Coming soon
-            live: null
-        },
-        status: 'In Development',
-        year: '2025'
+export const projectsData = [
+  {
+    id: 'risewell',
+    title: 'Risewell',
+    shortDesc: 'A smart alarm app with dynamic music and daily inspiration.',
+    fullDesc: `Risewell is a beautifully designed alarm application that transforms your morning routine. It features dynamic music that changes with each alarm, a daily inspiration system with motivational quotes, and a clean, intuitive interface designed entirely in Figma.`,
+    role: 'Full-Stack Developer & UI/UX Designer',
+    techStack: ['Flutter', 'Dart', 'Supabase', 'Figma'],
+    features: [
+      'Dynamic music selection for each alarm',
+      'Daily motivational quotes and inspiration',
+      'Beautiful, intuitive UI designed in Figma',
+      'Cloud sync with Supabase backend'
+    ],
+    links: {
+      github: 'https://github.com/Bilawal-Mehfooz-Malik',
+      playstore: null, // Coming soon
+      live: null
     },
-    {
-        id: 'findout',
-        title: 'Findout',
-        shortDesc: 'A location-based discovery app for exploring nearby places.',
-        fullDesc: `Findout helps users discover interesting places around them. Built with Flutter, it provides a seamless experience for finding restaurants, attractions, and hidden gems in your area with real-time location tracking and beautiful map integration.`,
-        role: 'Mobile App Developer',
-        techStack: ['Flutter', 'Dart', 'Firebase', 'Google Maps API'],
-        features: [
-            'Real-time location tracking',
-            'Interactive map with custom markers',
-            'Place details with ratings and reviews',
-            'Save favorite locations'
-        ],
-        links: {
-            github: 'https://github.com/Bilawal-Mehfooz-Malik',
-            playstore: null,
-            live: null
-        },
-        status: 'Completed',
-        year: '2024'
-    }
+    status: 'In Development',
+    year: '2025',
+    featured: true
+  },
+  {
+    id: 'findout',
+    title: 'Findout',
+    shortDesc: 'A location-based discovery app for exploring nearby places.',
+    fullDesc: `Findout helps users discover interesting places around them. Built with Flutter, it provides a seamless experience for finding restaurants, attractions, and hidden gems in your area with real-time location tracking and beautiful map integration.`,
+    role: 'Mobile App Developer',
+    techStack: ['Flutter', 'Dart', 'Firebase', 'Google Maps API'],
+    features: [
+      'Real-time location tracking',
+      'Interactive map with custom markers',
+      'Place details with ratings and reviews',
+      'Save favorite locations'
+    ],
+    links: {
+      github: 'https://github.com/Bilawal-Mehfooz-Malik',
+      playstore: null,
+      live: null
+    },
+    status: 'Completed',
+    year: '2024',
+    featured: true
+  },
+  {
+    id: 'portfolio-v1',
+    title: 'Portfolio V1',
+    shortDesc: 'My first personal portfolio website built with HTML and CSS.',
+    fullDesc: 'A minimalist portfolio project created to showcase my early web development skills. It features a clean layout, responsive design, and a contact form.',
+    role: 'Frontend Developer',
+    techStack: ['HTML', 'CSS', 'JavaScript'],
+    features: [
+      'Responsive design',
+      'Interactive UI elements',
+      'Project showcase grid'
+    ],
+    links: {
+      github: 'https://github.com/Bilawal-Mehfooz-Malik',
+      playstore: null,
+      live: null
+    },
+    status: 'Completed',
+    year: '2023',
+    featured: false
+  },
+  {
+    id: 'weather-app',
+    title: 'SkyCast',
+    shortDesc: 'A real-time weather forecasting app with location tracking.',
+    fullDesc: 'SkyCast provides accurate weather data using OpenWeatherMap API. It features a dynamic background that changes based on weather conditions and detailed 7-day forecasts.',
+    role: 'Flutter Developer',
+    techStack: ['Flutter', 'Dart', 'OpenWeather API'],
+    features: [
+      'Real-time weather updates',
+      'Location-based forecasting',
+      'Dynamic UI animations'
+    ],
+    links: {
+      github: 'https://github.com/Bilawal-Mehfooz-Malik',
+      playstore: null,
+      live: null
+    },
+    status: 'Completed',
+    year: '2023',
+    featured: false
+  },
+  {
+    id: 'task-manager',
+    title: 'FocusFlow',
+    shortDesc: 'A productivity app for managing tasks and daily goals.',
+    fullDesc: 'FocusFlow helps users stay organized with a simplified task management system. Built with Flutter and Hive for local storage, it offers offline support and a clean dark-mode interface.',
+    role: 'Mobile App Developer',
+    techStack: ['Flutter', 'Hive', 'Dart'],
+    features: [
+      'Local data persistence',
+      'Task prioritization',
+      'Daily goal reminders'
+    ],
+    links: {
+      github: 'https://github.com/Bilawal-Mehfooz-Malik',
+      playstore: null,
+      live: null
+    },
+    status: 'Completed',
+    year: '2024',
+    featured: false
+  }
 ];
 
 export function renderProjects() {
-    const projectsSection = document.createElement('section');
-    projectsSection.id = 'projects';
-    projectsSection.className = 'projects-section';
+  const projectsSection = document.createElement('section');
+  projectsSection.id = 'projects';
+  projectsSection.className = 'projects-section';
 
-    projectsSection.innerHTML = `
+  // Only show featured projects on homepage (max 4)
+  const featuredProjects = projectsData.filter(p => p.featured).slice(0, 4);
+  const hasMoreProjects = projectsData.length > featuredProjects.length;
+
+  projectsSection.innerHTML = `
     <div class="projects-container">
       <div class="projects-header">
         <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
@@ -59,7 +128,7 @@ export function renderProjects() {
       </div>
 
       <div class="projects-grid">
-        ${projectsData.map(project => `
+        ${featuredProjects.map(project => `
           <div class="project-card" data-project-id="${project.id}">
             <div class="project-card-content">
               <div class="project-header">
@@ -81,6 +150,17 @@ export function renderProjects() {
           </div>
         `).join('')}
       </div>
+
+      ${hasMoreProjects ? `
+      <div class="projects-view-all">
+        <a href="#/projects" class="view-all-btn">
+          View All Projects
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+      ` : ''}
     </div>
 
     <!-- Project Modal -->
@@ -99,39 +179,39 @@ export function renderProjects() {
     </div>
   `;
 
-    document.querySelector('main').appendChild(projectsSection);
-    initProjectsLogic(projectsSection);
+  document.querySelector('main').appendChild(projectsSection);
+  initProjectsLogic(projectsSection, featuredProjects);
 }
 
-function initProjectsLogic(section) {
-    const modal = section.querySelector('#project-modal');
-    const modalBody = section.querySelector('#modal-body');
-    const modalBackdrop = section.querySelector('.modal-backdrop');
-    const modalClose = section.querySelector('.modal-close');
-    const projectCards = section.querySelectorAll('.project-card');
+function initProjectsLogic(section, projects = projectsData) {
+  const modal = section.querySelector('#project-modal');
+  const modalBody = section.querySelector('#modal-body');
+  const modalBackdrop = section.querySelector('.modal-backdrop');
+  const modalClose = section.querySelector('.modal-close');
+  const projectCards = section.querySelectorAll('.project-card');
 
-    // Open modal on card click
-    projectCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const projectId = card.getAttribute('data-project-id');
-            const project = projectsData.find(p => p.id === projectId);
-            if (project) {
-                openModal(project);
-            }
-        });
+  // Open modal on card click
+  projectCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const projectId = card.getAttribute('data-project-id');
+      const project = projectsData.find(p => p.id === projectId);
+      if (project) {
+        openModal(project);
+      }
     });
+  });
 
-    // Close modal events
-    modalBackdrop.addEventListener('click', closeModal);
-    modalClose.addEventListener('click', closeModal);
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
+  // Close modal events
+  modalBackdrop.addEventListener('click', closeModal);
+  modalClose.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
 
-    function openModal(project) {
-        modalBody.innerHTML = `
+  function openModal(project) {
+    modalBody.innerHTML = `
       <div class="modal-header">
         <div class="modal-title-row">
           <h2 class="modal-title">${project.title}</h2>
@@ -182,12 +262,12 @@ function initProjectsLogic(section) {
       </div>
     `;
 
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
 
-    function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 }

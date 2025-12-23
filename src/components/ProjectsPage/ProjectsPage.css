@@ -1,0 +1,90 @@
+/* Projects Page */
+.projects-page {
+    min-height: 100vh;
+    padding: 6rem 2rem;
+    padding-top: 8rem;
+    background-color: var(--bg-color);
+}
+
+.projects-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.projects-page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+/* Back Button */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    color: var(--text-color);
+}
+
+.back-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.back-btn:hover svg {
+    transform: translateX(-5px);
+}
+
+/* Page Title */
+.page-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.page-title .highlight {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.page-desc {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Projects Grid */
+.projects-page-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .projects-page {
+        padding: 5rem 1.5rem;
+        padding-top: 6rem;
+    }
+
+    .projects-page-header {
+        margin-bottom: 3rem;
+    }
+
+    .projects-page-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .back-btn {
+        margin-bottom: 1.5rem;
+    }
+}
