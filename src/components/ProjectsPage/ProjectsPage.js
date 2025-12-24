@@ -1,15 +1,11 @@
 import './ProjectsPage.css';
 import { projectsData } from '../Projects/Projects.js';
 
-export function renderProjectsPage() {
-    // Clear main content
-    const main = document.querySelector('main');
-    main.innerHTML = '';
+export function renderProjectsPage(container = document.querySelector('main')) {
+  const projectsPage = document.createElement('section');
+  projectsPage.className = 'projects-page';
 
-    const projectsPage = document.createElement('section');
-    projectsPage.className = 'projects-page';
-
-    projectsPage.innerHTML = `
+  projectsPage.innerHTML = `
     <div class="projects-page-container">
       <div class="projects-page-header">
         <a href="#/" class="back-btn">
@@ -63,42 +59,44 @@ export function renderProjectsPage() {
     </div>
   `;
 
-    main.appendChild(projectsPage);
-    initProjectsPageLogic(projectsPage);
+  container.appendChild(projectsPage);
+  initProjectsPageLogic(projectsPage);
 
-    // Scroll to top when page loads
-    window.scrollTo(0, 0);
+  // Scroll to top when page loads
+  window.scrollTo(0, 0);
 }
 
 function initProjectsPageLogic(section) {
-    const modal = section.querySelector('#project-modal');
-    const modalBody = section.querySelector('#modal-body');
-    const modalBackdrop = section.querySelector('.modal-backdrop');
-    const modalClose = section.querySelector('.modal-close');
-    const projectCards = section.querySelectorAll('.project-card');
+  const modal = section.querySelector('#project-modal');
+  const modalBody = section.querySelector('#modal-body');
+  const modalBackdrop = section.querySelector('.modal-backdrop');
+  const modalClose = section.querySelector('.modal-close');
+  const projectCards = section.querySelectorAll('.project-card');
 
-    // Open modal on card click
-    projectCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const projectId = card.getAttribute('data-project-id');
-            const project = projectsData.find(p => p.id === projectId);
-            if (project) {
-                openModal(project);
-            }
-        });
+  // Open modal on card click
+  projectCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const projectId = card.getAttribute('data-project-id');
+      const project = projectsData.find(p => p.id === projectId);
+      if (project) {
+        openModal(project);
+      }
     });
+  });
 
-    // Close modal events
-    modalBackdrop.addEventListener('click', closeModal);
-    modalClose.addEventListener('click', closeModal);
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
+  // Close modal events
+  modalBackdrop.addEventListener('click', closeModal);
+  modalClose.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
 
-    function openModal(project) {
-        modalBody.innerHTML = `
+  let modalPushed = false;
+
+  function openModal(project) {
+    modalBody.innerHTML = `
       <div class="modal-header">
         <div class="modal-title-row">
           <h2 class="modal-title">${project.title}</h2>
@@ -149,12 +147,27 @@ function initProjectsPageLogic(section) {
       </div>
     `;
 
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
 
-    function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
+    // Push state to history for back button support
+    history.pushState({ modalOpen: true }, '', window.location.hash);
+    modalPushed = true;
+  }
+
+  function closeModal(shouldGoBack = true) {
+    if (!modal.classList.contains('active')) return;
+
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+
+    // If modal was closed via X or backdrop (not back button), remove history entry
+    if (shouldGoBack && modalPushed) {
+      history.back();
     }
+    modalPushed = false;
+  }
+
+  // Handle local close events (popstate is handled in main.js)
+  window.addEventListener('closeCurrentModal', () => closeModal(false));
 }

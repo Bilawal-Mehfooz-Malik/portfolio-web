@@ -1,10 +1,10 @@
 import './Hero.css';
 
-export function renderHero() {
-    const heroSection = document.createElement('section');
-    heroSection.id = 'hero';
-    heroSection.className = 'hero-section';
-    heroSection.innerHTML = `
+export function renderHero(container = document.querySelector('main')) {
+  const heroSection = document.createElement('section');
+  heroSection.id = 'hero';
+  heroSection.className = 'hero-section';
+  heroSection.innerHTML = `
     <div class="hero-content">
       <h2 class="animate-fade-up">Hello, I'm Bilawal Mehfooz</h2>
       <h1 class="animate-fade-up delay-100">Building Mobile Experiences<br /><span class="highlight">That
@@ -21,29 +21,29 @@ export function renderHero() {
     </div>
   `;
 
-    document.querySelector('main').appendChild(heroSection);
-    initHeroAnimations(heroSection);
+  container.appendChild(heroSection);
+  initHeroAnimations(heroSection);
 }
 
 function initHeroAnimations(heroSection) {
-    // Scroll Animation Observer (reused logic)
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
+  // Scroll Animation Observer (reused logic)
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animationPlayState = 'running';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    heroSection.querySelectorAll('.animate-fade-up, .animate-fade-in').forEach(el => {
-        el.style.animationPlayState = 'paused';
-        observer.observe(el);
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+        observer.unobserve(entry.target);
+      }
     });
+  }, observerOptions);
+
+  heroSection.querySelectorAll('.animate-fade-up, .animate-fade-in').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
 }

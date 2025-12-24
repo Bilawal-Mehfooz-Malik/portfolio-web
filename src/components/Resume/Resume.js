@@ -1,7 +1,7 @@
 import './Resume.css';
 import { icons } from '../../assets/icons.js';
 
-export function renderResume() {
+export function renderResume(container = document.querySelector('main')) {
   const resumeSection = document.createElement('section');
   resumeSection.id = 'about';
   resumeSection.className = 'resume-section';
@@ -149,7 +149,7 @@ export function renderResume() {
     </div>
   `;
 
-  document.querySelector('main').appendChild(resumeSection);
+  container.appendChild(resumeSection);
   initResumeLogic(resumeSection);
 }
 

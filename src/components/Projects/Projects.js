@@ -111,7 +111,7 @@ export const projectsData = [
   }
 ];
 
-export function renderProjects() {
+export function renderProjects(container = document.querySelector('main')) {
   const projectsSection = document.createElement('section');
   projectsSection.id = 'projects';
   projectsSection.className = 'projects-section';
@@ -179,7 +179,7 @@ export function renderProjects() {
     </div>
   `;
 
-  document.querySelector('main').appendChild(projectsSection);
+  container.appendChild(projectsSection);
   initProjectsLogic(projectsSection, featuredProjects);
 }
 
@@ -209,6 +209,8 @@ function initProjectsLogic(section, projects = projectsData) {
       closeModal();
     }
   });
+
+  let modalPushed = false;
 
   function openModal(project) {
     modalBody.innerHTML = `
@@ -264,10 +266,25 @@ function initProjectsLogic(section, projects = projectsData) {
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    // Push state to history for back button support
+    history.pushState({ modalOpen: true }, '', window.location.hash);
+    modalPushed = true;
   }
 
-  function closeModal() {
+  function closeModal(shouldGoBack = true) {
+    if (!modal.classList.contains('active')) return;
+
     modal.classList.remove('active');
     document.body.style.overflow = '';
+
+    // If modal was closed via X or backdrop (not back button), remove history entry
+    if (shouldGoBack && modalPushed) {
+      history.back();
+    }
+    modalPushed = false;
   }
+
+  // Handle local close events (popstate is handled in main.js)
+  window.addEventListener('closeCurrentModal', () => closeModal(false));
 }
