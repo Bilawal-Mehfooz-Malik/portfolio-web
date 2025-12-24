@@ -14,10 +14,10 @@ document.body.appendChild(main);
 
 let currentRoute = null;
 let isAnimating = false;
-let savedScrollPosition = 0; // Remember scroll position when leaving home
+let savedScrollPosition = 0;
 
-function getRouteType(hash) {
-    if (hash === '#/projects') return 'projects';
+function getRouteType(path) {
+    if (path === '/projects') return 'projects';
     return 'home';
 }
 
@@ -31,59 +31,54 @@ function renderContent(container, routeType) {
     }
 }
 
+/**
+ * Main router function
+ */
 async function router() {
     if (isAnimating) return;
 
-    const hash = window.location.hash || '#/';
-    const newRoute = getRouteType(hash);
+    const path = window.location.pathname;
+    const newRoute = getRouteType(path);
 
-    // Skip if same route and content exists
     if (newRoute === currentRoute && main.children.length > 0) return;
 
     const oldContainer = main.querySelector('.page-container');
 
-    // Create new container
     const newContainer = document.createElement('div');
     newContainer.className = 'page-container';
     renderContent(newContainer, newRoute);
 
-    // Determine direction: going to projects = forward, going to home = backward
     const isForward = newRoute === 'projects';
-
-    // Track if we're returning from projects page
     const returningFromProjects = !isForward && currentRoute === 'projects';
 
     if (oldContainer) {
         isAnimating = true;
+        const scrollY = window.scrollY;
 
-        // Always scroll to top at the start of animation
+        if (isForward && currentRoute === 'home') {
+            savedScrollPosition = scrollY;
+        }
+
+        // Anchor the old container visually
+        oldContainer.style.top = `-${scrollY}px`;
+
+        // Reset window scroll without visual jumping
         window.scrollTo(0, 0);
 
-        // Add animating class to both
         oldContainer.classList.add('animating');
         newContainer.classList.add('animating');
 
-        // Set initial position for new container
         if (isForward) {
-            // New page slides in from the right (translateX(100%))
             newContainer.classList.add('slide-in-right');
         } else {
-            // New page slides in from the left (translateX(-100%))
             newContainer.classList.add('slide-in-left');
         }
 
-        // Add new container to DOM
         main.appendChild(newContainer);
-
-        // Force reflow to ensure initial position is applied
         newContainer.offsetHeight;
 
-        // Animate both containers
         requestAnimationFrame(() => {
-            // Move new container to center
             newContainer.classList.add('slide-active');
-
-            // Move old container off screen
             if (isForward) {
                 oldContainer.classList.add('slide-out-left');
             } else {
@@ -91,22 +86,20 @@ async function router() {
             }
         });
 
-        // Cleanup after animation
         setTimeout(() => {
             oldContainer.remove();
             newContainer.classList.remove('animating', 'slide-in-left', 'slide-in-right', 'slide-active');
             isAnimating = false;
 
-            // Smoothly scroll to projects section when returning from projects page
             if (returningFromProjects) {
-                const projectsSection = document.getElementById('projects');
-                if (projectsSection) {
-                    projectsSection.scrollIntoView({ behavior: 'smooth' });
-                }
+                // Smooth scroll back to section
+                window.scrollTo({
+                    top: savedScrollPosition,
+                    behavior: 'smooth'
+                });
             }
-        }, 500);
+        }, 700);
     } else {
-        // First render, no animation needed
         main.appendChild(newContainer);
         window.scrollTo(0, 0);
     }
@@ -114,13 +107,37 @@ async function router() {
     currentRoute = newRoute;
 }
 
-window.addEventListener('hashchange', router);
+// Navigation helper
+export function navigate(path) {
+    if (window.location.pathname === path) return;
+    window.history.pushState({}, '', path);
+    router();
+}
 
-window.addEventListener('popstate', () => {
+// Global click handler to intercept links
+document.body.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (link && link.href && link.href.startsWith(window.location.origin)) {
+        const url = new URL(link.href);
+        const isInternalRoute = url.pathname === '/' || url.pathname === '/projects';
+
+        if (isInternalRoute) {
+            if (url.pathname === window.location.pathname && url.hash) {
+                return;
+            }
+
+            e.preventDefault();
+            navigate(url.pathname);
+        }
+    }
+});
+
+window.addEventListener('popstate', (e) => {
+    router();
     window.dispatchEvent(new CustomEvent('closeCurrentModal'));
 });
 
+// Initial route
 router();
 
 console.log('Portfolio Initialized.');
-
