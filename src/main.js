@@ -34,13 +34,19 @@ function renderContent(container, routeType) {
 /**
  * Main router function
  */
-async function router() {
+async function router(targetSectionId = null) {
     if (isAnimating) return;
 
     const path = window.location.pathname;
     const newRoute = getRouteType(path);
 
-    if (newRoute === currentRoute && main.children.length > 0) return;
+    // If we're already on the correct route but need to scroll to a section
+    if (newRoute === currentRoute && main.children.length > 0) {
+        if (targetSectionId) {
+            scrollToSection(targetSectionId);
+        }
+        return;
+    }
 
     const oldContainer = main.querySelector('.page-container');
 
@@ -91,8 +97,10 @@ async function router() {
             newContainer.classList.remove('animating', 'slide-in-left', 'slide-in-right', 'slide-active');
             isAnimating = false;
 
-            if (returningFromProjects) {
-                // Smooth scroll back to section
+            if (targetSectionId && newRoute === 'home') {
+                scrollToSection(targetSectionId);
+            } else if (returningFromProjects) {
+                // Default return scroll restoration
                 window.scrollTo({
                     top: savedScrollPosition,
                     behavior: 'smooth'
@@ -102,32 +110,71 @@ async function router() {
     } else {
         main.appendChild(newContainer);
         window.scrollTo(0, 0);
+        if (targetSectionId && newRoute === 'home') {
+            setTimeout(() => scrollToSection(targetSectionId), 100);
+        }
     }
 
     currentRoute = newRoute;
 }
 
+function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId.replace('#', ''));
+    if (element) {
+        const offset = 80; // Account for navbar height
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+
+        // Clean up URL hash after scroll
+        setTimeout(() => {
+            history.pushState(null, null, window.location.pathname);
+        }, 1000);
+    }
+}
+
 // Navigation helper
-export function navigate(path) {
-    if (window.location.pathname === path) return;
+export function navigate(path, targetSectionId = null) {
+    if (window.location.pathname === path && !targetSectionId) return;
     window.history.pushState({}, '', path);
-    router();
+    router(targetSectionId);
 }
 
 // Global click handler to intercept links
 document.body.addEventListener('click', (e) => {
     const link = e.target.closest('a');
-    if (link && link.href && link.href.startsWith(window.location.origin)) {
-        const url = new URL(link.href);
-        const isInternalRoute = url.pathname === '/' || url.pathname === '/projects';
+    if (!link || !link.href) return;
 
-        if (isInternalRoute) {
-            if (url.pathname === window.location.pathname && url.hash) {
-                return;
-            }
+    const url = new URL(link.href);
+    const isInternalOrigin = url.origin === window.location.origin;
 
+    if (isInternalOrigin) {
+        const path = url.pathname;
+        const hash = url.hash;
+
+        // Special handling for section links (#about, #projects, etc)
+        if (hash && (path === '/' || path === window.location.pathname)) {
             e.preventDefault();
-            navigate(url.pathname);
+
+            if (getRouteType(window.location.pathname) === 'home') {
+                // We're already on home, just scroll
+                scrollToSection(hash);
+            } else {
+                // We're on projects, navigate back to home then scroll
+                navigate('/', hash);
+            }
+            return;
+        }
+
+        // Standard route navigation (/projects, /)
+        const isInternalRoute = path === '/' || path === '/projects';
+        if (isInternalRoute) {
+            e.preventDefault();
+            navigate(path);
         }
     }
 });
