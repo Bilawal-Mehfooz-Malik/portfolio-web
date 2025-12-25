@@ -92,7 +92,7 @@ export const projectsData = [
     },
     status: 'Completed',
     year: '2025',
-    featured: true
+    featured: false
   },
   {
     id: 'food-app-ui',
@@ -137,7 +137,7 @@ export const projectsData = [
     },
     status: 'Completed',
     year: '2024',
-    featured: true
+    featured: false
   }
 ];
 
