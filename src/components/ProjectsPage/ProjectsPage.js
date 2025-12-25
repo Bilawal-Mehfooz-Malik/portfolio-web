@@ -141,7 +141,17 @@ function initProjectsPageLogic(section) {
             View on Play Store
           </a>
         ` : ''}
-        ${!project.links.github && !project.links.playstore ? `
+        ${project.links.live ? `
+          <a href="${project.links.live}" target="_blank" rel="noopener noreferrer" class="modal-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            View Website
+          </a>
+        ` : ''}
+        ${!project.links.github && !project.links.playstore && !project.links.live ? `
           <span class="modal-coming-soon">Links coming soon...</span>
         ` : ''}
       </div>
