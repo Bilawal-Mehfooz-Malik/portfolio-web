@@ -4,6 +4,8 @@ import { renderHero } from './components/Hero/Hero.js';
 import { renderResume } from './components/Resume/Resume.js';
 import { renderProjects } from './components/Projects/Projects.js';
 import { renderProjectsPage } from './components/ProjectsPage/ProjectsPage.js';
+import { renderContact } from './components/Contact/Contact.js';
+import { renderFooter } from './components/Footer/Footer.js';
 
 console.log('Initializing Portfolio...');
 
@@ -28,8 +30,11 @@ function renderContent(container, routeType) {
         renderHero(container);
         renderResume(container);
         renderProjects(container);
+        renderContact(container);
+        renderFooter(container);
     }
 }
+
 
 /**
  * Main router function
