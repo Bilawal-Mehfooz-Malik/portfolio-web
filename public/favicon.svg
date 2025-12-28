@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="100" fill="#111111"/>
-  <text x="50%" y="54%" font-family="'Arial', sans-serif" font-weight="bold" font-size="280" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">BM</text>
+  <!-- Infinity Symbol -->
+  <path d="M150,256 C150,200 100,200 100,256 C100,312 150,312 150,256 C150,200 250,200 362,312 C418,368 462,312 462,256 C462,200 418,150 362,206 L150,412" 
+        fill="none" stroke="#64ffda" stroke-width="50" stroke-linecap="round" stroke-linejoin="round" opacity="0" />
+        
+  <!-- Better Path -->
+  <path d="M350 256 C350 320 440 320 440 256 C440 192 350 192 350 256 C350 320 162 320 162 256 C162 192 72 192 72 256 C72 320 162 320 162 256"
+        fill="none" stroke="#64ffda" stroke-width="40" stroke-linecap="round"/>
 </svg>
