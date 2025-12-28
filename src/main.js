@@ -124,7 +124,11 @@ async function router(targetSectionId = null) {
 }
 
 function scrollToSection(sectionId) {
-    const element = document.getElementById(sectionId.replace('#', ''));
+    // Map resume tabs to 'about' section
+    const resumeTabs = ['#experience', '#education', '#skills', '#about'];
+    const targetId = resumeTabs.includes(sectionId) ? 'about' : sectionId.replace('#', '');
+
+    const element = document.getElementById(targetId);
     if (element) {
         const offset = 80; // Account for navbar height
         const elementPosition = element.getBoundingClientRect().top;
@@ -135,7 +139,13 @@ function scrollToSection(sectionId) {
             behavior: 'smooth'
         });
 
-        // Clean up URL hash after scroll
+        // Update URL hash manually
+        history.pushState(null, null, sectionId);
+
+        // Dispath hashchange event so Resume.js can react
+        window.dispatchEvent(new Event('hashchange'));
+
+        // Always clear hash after scroll to keep URLs clean
         setTimeout(() => {
             history.pushState(null, null, window.location.pathname);
         }, 1000);

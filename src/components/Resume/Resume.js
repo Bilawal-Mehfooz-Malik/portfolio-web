@@ -157,18 +157,50 @@ function initResumeLogic(resumeSection) {
   const tabBtns = resumeSection.querySelectorAll('.tab-btn');
   const tabContents = resumeSection.querySelectorAll('.tab-content');
 
+  function switchTab(tabId) {
+    // 1. Remove active class from all buttons and contents
+    tabBtns.forEach(b => b.classList.remove('active'));
+    tabContents.forEach(c => c.classList.remove('active'));
+
+    // 2. Add active class to corresponding button
+    const activeBtn = Array.from(tabBtns).find(b => b.getAttribute('data-tab') === tabId);
+    if (activeBtn) activeBtn.classList.add('active');
+
+    // 3. Show corresponding content
+    const content = resumeSection.querySelector(`#${tabId}`);
+    if (content) content.classList.add('active');
+  }
+
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // 1. Remove active class from all buttons and contents
-      tabBtns.forEach(b => b.classList.remove('active'));
-      tabContents.forEach(c => c.classList.remove('active'));
-
-      // 2. Add active class to clicked button
-      btn.classList.add('active');
-
-      // 3. Show corresponding content
       const targetId = btn.getAttribute('data-tab');
-      resumeSection.querySelector(`#${targetId}`).classList.add('active');
+      switchTab(targetId);
     });
   });
+
+  // Handle Hash Navigation (e.g., #experience -> opens Experience tab)
+  function handleHash() {
+    const hash = window.location.hash;
+    if (hash === '#experience') {
+      switchTab('tab-experience');
+      // Scroll to section if needed (though default anchor behavior might handle it if ID existed)
+      // Since ID 'experience' doesn't exist on section, we scroll to #about
+      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    } else if (hash === '#skills') {
+      switchTab('tab-skills');
+      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    } else if (hash === '#education') {
+      switchTab('tab-education');
+      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    } else if (hash === '#about') {
+      switchTab('tab-about');
+      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // Check on load
+  handleHash();
+
+  // Check on hash change
+  window.addEventListener('hashchange', handleHash);
 }
