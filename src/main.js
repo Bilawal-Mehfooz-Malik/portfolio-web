@@ -139,16 +139,11 @@ function scrollToSection(sectionId) {
             behavior: 'smooth'
         });
 
-        // Update URL hash manually
-        history.pushState(null, null, sectionId);
-
-        // Dispath hashchange event so Resume.js can react
-        window.dispatchEvent(new Event('hashchange'));
-
-        // Always clear hash after scroll to keep URLs clean
-        setTimeout(() => {
-            history.pushState(null, null, window.location.pathname);
-        }, 1000);
+        // Dispatch custom navigation event so components (like Resume) can react
+        // This avoids changing the URL hash, keeping it clean
+        window.dispatchEvent(new CustomEvent('portfolio-navigate', {
+            detail: { section: sectionId }
+        }));
     }
 }
 

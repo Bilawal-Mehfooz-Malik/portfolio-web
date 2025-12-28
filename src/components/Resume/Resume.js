@@ -178,29 +178,29 @@ function initResumeLogic(resumeSection) {
     });
   });
 
-  // Handle Hash Navigation (e.g., #experience -> opens Experience tab)
+  // Handle Hash Navigation (for initial load)
   function handleHash() {
     const hash = window.location.hash;
-    if (hash === '#experience') {
+    processNavigation(hash);
+  }
+
+  // Handle Custom Navigation Event (for internal clicks without URL change)
+  window.addEventListener('portfolio-navigate', (e) => {
+    processNavigation(e.detail.section);
+  });
+
+  function processNavigation(identifier) {
+    if (identifier === '#experience') {
       switchTab('tab-experience');
-      // Scroll to section if needed (though default anchor behavior might handle it if ID existed)
-      // Since ID 'experience' doesn't exist on section, we scroll to #about
-      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-    } else if (hash === '#skills') {
+    } else if (identifier === '#skills') {
       switchTab('tab-skills');
-      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-    } else if (hash === '#education') {
+    } else if (identifier === '#education') {
       switchTab('tab-education');
-      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-    } else if (hash === '#about') {
+    } else if (identifier === '#about') {
       switchTab('tab-about');
-      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
   // Check on load
   handleHash();
-
-  // Check on hash change
-  window.addEventListener('hashchange', handleHash);
 }
