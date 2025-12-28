@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bilawal-mehfooz.vercel.app/sitemap.xml
