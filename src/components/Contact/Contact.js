@@ -48,7 +48,7 @@ export function renderContact(container = document.querySelector('main')) {
             <a href="https://github.com/Bilawal-Mehfooz-Malik" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub">
               <i class="fa-brands fa-github"></i>
             </a>
-            <a href="https://linkedin.com/in/bilawal-mehfooz-malik" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/bilawal-mehfooz/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
               <i class="fa-brands fa-linkedin"></i>
             </a>
           </div>

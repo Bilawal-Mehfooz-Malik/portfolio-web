@@ -10,7 +10,7 @@ export function renderFooter(container) {
     <div class="footer-container">
       <div class="footer-content">
         <div class="footer-logo" aria-label="Footer Logo">
-          <p class="logo-text">Bilawal Mehfooz</p>
+          <a href="#hero" class="logo-text">Bilawal Mehfooz</a>
         </div>
         
         <div class="footer-links">
@@ -23,7 +23,7 @@ export function renderFooter(container) {
           <a href="https://github.com/Bilawal-Mehfooz-Malik" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
             <i class="fa-brands fa-github"></i>
           </a>
-          <a href="https://linkedin.com/in/bilawal-mehfooz-malik" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/bilawal-mehfooz/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
             <i class="fa-brands fa-linkedin"></i>
           </a>
         </div>
